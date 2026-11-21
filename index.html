@@ -1,0 +1,761 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, orientation=landscape, user-scalable=no, viewport-fit=cover">
+    <title data-translate="唐老二">唐老二</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- 首页（圣旨卷轴，以扑克游戏为主入口） -->
+    <div id="home-screen" class="home-screen active">
+        <!-- 左侧卷轴 -->
+        <div class="scroll-scroll left-scroll"></div>
+        <!-- 右侧卷轴 -->
+        <div class="scroll-scroll right-scroll"></div>
+
+        <div class="home-container">
+            <img src="game_icon/game_icon.png" class="home-icon" alt="游戏图标">
+            <div class="home-title-container">
+                <h1 class="home-title" data-translate="唐老二">唐老二</h1>
+            </div>
+            <!-- 首页诗词展示（仅平板/折叠屏等接近方形比例显示，普通手机隐藏；点击诗词或空白区域切换） -->
+            <div id="home-poem-box" class="home-poem-box">
+                <div id="home-poem-text" class="home-poem-text"></div>
+                <div class="home-poem-hint" data-translate="点击换一首">点击换一首</div>
+            </div>
+            <div class="home-buttons">
+                <button id="enter-game-btn" class="enter-game-btn" data-translate="进入游戏">进入游戏</button>
+                <button id="rules-btn-home" class="home-fn-btn" data-translate="游戏规则">游戏规则</button>
+                <button id="edit-names-btn-home" class="home-fn-btn" data-translate="修改名称">修改名称</button>
+                <button id="help-btn-home" class="home-fn-btn" data-translate="帮助">帮助</button>
+                <button id="privacy-btn-home" class="home-fn-btn" data-translate="隐私政策">隐私政策</button>
+            </div>
+        </div>
+        <div class="home-bottom-left">
+            <button id="recite-poem-btn" class="recite-poem-btn" data-translate="背唐诗">背唐诗</button>
+            <span class="home-ad-notice" data-translate="免费版 有广告">免费版 有广告</span>
+        </div>
+        <div class="home-bottom-right">
+            <div class="home-version"><span data-translate="版本号">版本号</span>: <span class="game-version">1.0.6</span></div>
+            <button id="variant-btn" class="language-btn variant-btn" style="display: none;">繁體</button>
+            <button id="language-btn" class="language-btn" data-translate="English">English</button>
+        </div>
+    </div>
+
+    <!-- 设置弹窗 -->
+    <div id="settings-modal">
+        <div class="score-modal-content">
+            <div class="score-modal-header">
+                <h3 data-translate="设置">设置</h3>
+                <button id="settings-modal-close" class="score-modal-close">&times;</button>
+            </div>
+            <div class="score-modal-body">
+                <button id="speed-btn" class="settings-item" data-translate="游戏节奏">游戏节奏</button>
+                <button id="color-btn" class="settings-item" data-translate="桌面颜色">桌面颜色</button>
+                <button id="card-size-btn" class="settings-item" data-translate="扑克牌调节">扑克牌调节</button>
+                <button id="ai-difficulty-btn" class="settings-item" data-translate="AI难度">AI难度</button>
+                <button id="sound-toggle-btn" class="settings-item" data-translate="音效开关">音效开关</button>
+            </div>
+        </div>
+    </div>
+    
+    <!-- AI难度设置弹窗 -->
+    <div id="ai-difficulty-modal" class="score-modal">
+        <div class="score-modal-content">
+            <div class="score-modal-header">
+                <h3 data-translate="AI难度">AI难度</h3>
+                <button id="ai-difficulty-modal-close" class="score-modal-close">&times;</button>
+            </div>
+            <div class="score-modal-body">
+                <div class="difficulty-options">
+                    <button id="difficulty-easy" class="difficulty-btn" data-translate="简单">简单</button>
+                    <button id="difficulty-normal" class="difficulty-btn" data-translate="中等">中等</button>
+                    <button id="difficulty-hard" class="difficulty-btn" data-translate="困难">困难</button>
+                </div>
+                <div class="difficulty-description" id="difficulty-description">
+                    <span data-translate="中等">中等</span> - AI与玩家水平旗鼓相当
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- 隐私政策弹窗 -->
+    <div id="privacy-modal" class="score-modal">
+        <div class="score-modal-content privacy-modal-content">
+            <div class="score-modal-header">
+                <h3 data-translate="隐私政策">隐私政策</h3>
+                <button id="privacy-modal-close" class="score-modal-close">&times;</button>
+            </div>
+            <div class="score-modal-body privacy-modal-body">
+                <div class="cn-content" id="privacy-cn-content">
+                    <p style="font-size: 0.85rem; color: #666;">适用于「唐老二」（Android 应用）｜更新日期：2026年11月13日｜生效日期：2026年11月13日</p>
+                    <p>欢迎使用「唐老二」（以下简称「本游戏」）。我们重视您的隐私。本政策说明本游戏会处理哪些信息、如何使用与保护这些信息，以及您享有的权利。</p>
+
+                    <h2>一、我们处理的信息</h2>
+
+                    <h3>1.1 仅存储在您设备上的数据</h3>
+                    <p>本游戏的以下数据仅保存在您的设备本地（应用私有存储），不会上传到我们的服务器，卸载应用即被删除：</p>
+                    <ul>
+                        <li>游戏进度、得分、金币与成就</li>
+                        <li>玩家昵称、语言、音乐与音量等设置</li>
+                    </ul>
+
+                    <h3>1.2 广告相关数据（由 Google AdMob 处理）</h3>
+                    <p>本游戏通过 Google AdMob 展示插屏广告以支持免费运营。为提供广告服务，Google 及其广告合作伙伴可能收集并处理：</p>
+                    <ul>
+                        <li>设备广告标识符（Advertising ID / 广告 ID）</li>
+                        <li>设备型号、操作系统版本、屏幕与语言等信息</li>
+                        <li>网络连接信息（IP 地址、网络类型）</li>
+                        <li>广告展示、点击与转化数据</li>
+                        <li>基于 IP 地址推断的大致地理位置</li>
+                    </ul>
+                    <p>上述信息用于投放个性化或非个性化广告、衡量广告效果以及防范欺诈与无效流量。关于 Google 如何使用这些数据，请参阅：</p>
+                    <ul>
+                        <li><a href="https://policies.google.com/technologies/partner-sites" target="_blank" rel="noopener">Google 如何使用使用我们合作伙伴服务的网站或应用中的信息</a></li>
+                        <li><a href="https://policies.google.com/privacy" target="_blank" rel="noopener">Google 隐私权政策</a></li>
+                        <li><a href="https://support.google.com/admob/answer/6128543" target="_blank" rel="noopener">AdMob 计划政策</a></li>
+                    </ul>
+
+                    <h3>1.3 我们不会收集的信息</h3>
+                    <p>本游戏不会主动收集您的姓名、电话号码、电子邮件、通讯录、照片、精确位置等个人身份信息。您在游戏内输入的昵称仅用于游戏内显示，不与任何个人身份信息关联。</p>
+
+                    <h2>二、信息的使用目的</h2>
+                    <ul>
+                        <li>提供游戏功能，保存并恢复您的游戏进度与设置</li>
+                        <li>通过 Google AdMob 展示广告并衡量广告效果，以维持游戏免费运营</li>
+                        <li>排查崩溃与性能问题，提升稳定性</li>
+                    </ul>
+
+                    <h2>三、信息的存储、保留与安全</h2>
+                    <ul>
+                        <li>游戏数据仅存储于您的设备本地，卸载应用或清除应用数据后即被删除</li>
+                        <li>广告相关数据由 Google 按其隐私政策规定的期限保留与处理，我们不在自有服务器上存储这些数据</li>
+                        <li>我们采取合理的安全措施保护本地数据，但无法保证绝对安全</li>
+                    </ul>
+
+                    <h2>四、广告与您的选择</h2>
+                    <h3>4.1 个性化广告</h3>
+                    <p>默认情况下，广告可能基于您的广告 ID 进行个性化投放。您可以随时退出个性化广告：</p>
+                    <ul>
+                        <li>Android 设备：设置 → 隐私（或「安全与隐私」）→ 广告 → 选择「删除广告 ID」或关闭「个性化广告」</li>
+                        <li>重置广告 ID 后，此前基于该 ID 的广告偏好将不再与之关联</li>
+                    </ul>
+                    <h3>4.2 广告偏好管理</h3>
+                    <p>您可访问 <a href="https://www.google.com/settings/ads" target="_blank" rel="noopener">Google 广告设置</a> 管理 Google 广告的个性化偏好。</p>
+
+                    <h2>五、欧洲经济区与英国用户（GDPR）</h2>
+                    <p>若您位于欧洲经济区（EEA）或英国，依据《通用数据保护条例》（GDPR）及英国相关法律，您享有以下权利：</p>
+                    <ul>
+                        <li><strong>知情权</strong>：了解我们如何处理您的数据</li>
+                        <li><strong>访问与更正权</strong>：访问或更正与您相关的数据</li>
+                        <li><strong>删除权</strong>：请求删除与您相关的数据</li>
+                        <li><strong>限制处理与反对权</strong>：反对基于合法权益的处理，或限制处理</li>
+                        <li><strong>撤回同意</strong>：随时撤回对个性化广告的同意；首次启动时，本游戏会通过 Google 认证的同意管理平台（UMP）征求您的同意，您也可在广告内或设备设置中更改选择</li>
+                        <li><strong>投诉权</strong>：向您所在国家或地区的数据保护机构投诉</li>
+                    </ul>
+                    <p>行使上述权利请发送邮件至 <a href="mailto:battery360@163.com">battery360@163.com</a>，我们将在 30 天内回复。</p>
+
+                    <h2>六、儿童隐私</h2>
+                    <p>本游戏面向 13 岁及以上用户，不会有意收集 13 岁以下儿童的个人信息。若您是家长或监护人，发现孩子向我们提供了个人信息，请联系我们，我们会尽快删除。</p>
+
+                    <h2>七、第三方服务</h2>
+                    <p>本游戏集成了 Google AdMob（Google LLC）用于展示广告。该服务的数据处理行为受 Google 隐私政策约束。除广告服务外，本游戏不集成其他会收集个人数据的第三方 SDK，也不包含账号系统、支付或社交分享功能。</p>
+
+                    <h2>八、政策变更</h2>
+                    <p>我们可能不定期更新本政策。更新后的版本将在本页面发布，并同步更新上方的日期。若变更涉及您权利的重大调整，我们会在应用内提示。建议您定期查阅。</p>
+
+                    <div class="contact">
+                        <h3>联系我们</h3>
+                        <p>如对本政策有任何疑问、意见或数据相关请求，请通过以下方式联系：</p>
+                        <p>邮箱：<a href="mailto:battery360@163.com">battery360@163.com</a></p>
+                    </div>
+                </div>
+                <div class="en-content" id="privacy-en-content" style="display: none;">
+                    <p style="font-size: 0.85rem; color: #666;">For "Big Two Tang" (Android app) | Last updated: November 13, 2026 | Effective: November 13, 2026</p>
+                    <p>Welcome to "Big Two Tang" (the "Game"). We respect your privacy. This policy explains what information the Game processes, how it is used and protected, and the rights you have.</p>
+
+                    <h2>1. Information We Process</h2>
+
+                    <h3>1.1 Data stored only on your device</h3>
+                    <p>The following data is stored locally in the app's private storage on your device. It is not uploaded to our servers and is deleted when you uninstall the app:</p>
+                    <ul>
+                        <li>Game progress, scores, coins and achievements</li>
+                        <li>Player nickname, language, music and volume settings</li>
+                    </ul>
+
+                    <h3>1.2 Advertising data (processed by Google AdMob)</h3>
+                    <p>The Game displays interstitial ads through Google AdMob to remain free. To provide advertising services, Google and its advertising partners may collect and process:</p>
+                    <ul>
+                        <li>Advertising ID</li>
+                        <li>Device model, OS version, screen and language information</li>
+                        <li>Network connection information (IP address, network type)</li>
+                        <li>Ad impression, click and conversion data</li>
+                        <li>Approximate location inferred from IP address</li>
+                    </ul>
+                    <p>This information is used to serve personalized or non-personalized ads, measure ad performance, and prevent fraud and invalid traffic. For how Google uses this data, please see:</p>
+                    <ul>
+                        <li><a href="https://policies.google.com/technologies/partner-sites" target="_blank" rel="noopener">How Google uses information from sites or apps that use our services</a></li>
+                        <li><a href="https://policies.google.com/privacy" target="_blank" rel="noopener">Google Privacy Policy</a></li>
+                        <li><a href="https://support.google.com/admob/answer/6128543" target="_blank" rel="noopener">AdMob Program Policies</a></li>
+                    </ul>
+
+                    <h3>1.3 Information we do not collect</h3>
+                    <p>The Game does not actively collect personally identifiable information such as your name, phone number, email address, contacts, photos, or precise location. Nicknames you enter are used only for in-game display and are not linked to any personally identifiable information.</p>
+
+                    <h2>2. How Information Is Used</h2>
+                    <ul>
+                        <li>To provide game features and save/restore your progress and settings</li>
+                        <li>To display and measure ads through Google AdMob so the Game can remain free</li>
+                        <li>To diagnose crashes and improve stability and performance</li>
+                    </ul>
+
+                    <h2>3. Storage, Retention and Security</h2>
+                    <ul>
+                        <li>Game data is stored locally on your device and is deleted when you uninstall the app or clear its data</li>
+                        <li>Advertising data is retained and processed by Google in accordance with its privacy policy; we do not store such data on our own servers</li>
+                        <li>We apply reasonable security measures to local data but cannot guarantee absolute security</li>
+                    </ul>
+
+                    <h2>4. Ads and Your Choices</h2>
+                    <h3>4.1 Personalized advertising</h3>
+                    <p>By default, ads may be personalized based on your Advertising ID. You can opt out at any time:</p>
+                    <ul>
+                        <li>On Android: <strong>Settings → Privacy (or Security &amp; Privacy) → Ads</strong>, then "Delete advertising ID" or turn off ad personalization</li>
+                        <li>After resetting your Advertising ID, previous ad preferences linked to it are no longer associated with you</li>
+                    </ul>
+                    <h3>4.2 Ad preference management</h3>
+                    <p>You can manage Google ad personalization preferences at <a href="https://www.google.com/settings/ads" target="_blank" rel="noopener">Google Ads Settings</a>.</p>
+
+                    <h2>5. EEA and UK Users (GDPR)</h2>
+                    <p>If you are in the European Economic Area (EEA) or the United Kingdom, you have the following rights under the GDPR and applicable UK law:</p>
+                    <ul>
+                        <li><strong>Right to be informed</strong> about how we process your data</li>
+                        <li><strong>Access and rectification</strong>: access or correct data relating to you</li>
+                        <li><strong>Erasure</strong>: request deletion of data relating to you</li>
+                        <li><strong>Restriction and objection</strong>: restrict processing or object to processing based on legitimate interests</li>
+                        <li><strong>Withdraw consent</strong>: withdraw consent to personalized ads at any time; on first launch the Game requests consent through Google's certified consent management platform (UMP), and you may change your choice in the ad or in device settings</li>
+                        <li><strong>Complaint</strong>: lodge a complaint with your local data protection authority</li>
+                    </ul>
+                    <p>To exercise these rights, email <a href="mailto:battery360@163.com">battery360@163.com</a>. We will respond within 30 days.</p>
+
+                    <h2>6. Children's Privacy</h2>
+                    <p>The Game is intended for users aged 13 and over and does not knowingly collect personal information from children under 13. If you are a parent or guardian and believe your child has provided us with personal information, please contact us and we will delete it promptly.</p>
+
+                    <h2>7. Third-Party Services</h2>
+                    <p>The Game integrates Google AdMob (Google LLC) to display ads. That service's data processing is governed by Google's privacy policy. Apart from advertising, the Game integrates no other third-party SDKs that collect personal data, and includes no account system, payments, or social sharing.</p>
+
+                    <h2>8. Changes to This Policy</h2>
+                    <p>We may update this policy from time to time. Updated versions will be posted on this page with a revised date above. If a change materially affects your rights, we will notify you in the app. Please review this page periodically.</p>
+
+                    <div class="contact">
+                        <h3>Contact Us</h3>
+                        <p>For any questions, suggestions, or data-related requests regarding this policy, please contact:</p>
+                        <p>Email: <a href="mailto:battery360@163.com">battery360@163.com</a></p>
+                    </div>
+                </div>
+            </div>
+            <div class="score-modal-footer">
+                <button id="privacy-modal-ok" class="score-modal-ok" data-translate="确定">确定</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="game-wrapper" style="display:none">
+    <div class="thirteen-cards-container">
+
+        <div class="top-section">
+            <div class="logo-container">
+                <img src="game_icon/game_icon.png" alt="Game Logo" class="game-logo">
+            </div>
+            <div class="left-top-section">
+                <div class="title-container">
+                <h1 data-translate="唐老二">唐老二</h1>
+            </div>
+
+            <div class="game-info">
+                <div class="status-info">
+                    <div class="status-left">
+                        <div class="game-status"><span data-translate="游戏状态">游戏状态</span>: <span id="game-status" data-translate="准备就绪">准备就绪</span></div>
+                        <div class="current-player"><span data-translate="当前玩家">当前玩家</span>: <span id="current-player">-</span></div>
+                    </div>
+                        <div class="status-right">
+                            <div class="player-scores">
+                                <span data-translate="金币">金币</span>：
+                                <span id="user-coins">0</span>
+                                <span style="margin-left: 20px;" data-translate="玩家输赢统计">玩家输赢统计</span>：
+                                <span id="score-north">阿牛: 0</span>
+                                <span id="score-east">小美: 0</span>
+                                <span id="score-south">我: 0</span>
+                                <span id="score-west">小花: 0</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 烟花效果容器 -->
+        <div id="fireworks" class="fireworks-container"></div>
+        
+        <!-- 气氛对话框 -->
+        <div id="atmosphere-dialog" class="atmosphere-dialog">
+            <div class="atmosphere-dialog-content" id="atmosphere-dialog-content"></div>
+        </div>
+        
+
+        
+        <div class="game-content">
+            <!-- 左侧游戏区域 -->
+            <div class="game-left">
+                <div class="game-table">
+                    <!-- 打出的牌区域 -->
+                    <div class="played-cards" id="played-cards">
+                        <button id="start-btn" class="start-button" data-translate="开始">开始</button>
+                    </div>
+                    
+
+                    
+                    <!-- 玩家区域 - 北 -->
+                    <div class="player-area player-north">
+                        <div id="north-cards" class="player-cards"></div>
+                        <div class="player-header">
+                            <div class="player-name-info">
+                                <h3 id="north-name">阿牛</h3>
+                                <div class="player-action">
+                                    <span id="north-action"></span>
+                                </div>
+                                <div class="player-info">
+                                    <span class="player-cards-count" id="north-cards-count">13</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- 玩家区域 - 东 -->
+                    <div class="player-area player-east">
+                        <div class="player-header">
+                            <div class="player-name-info">
+                                <h3 id="east-name">小美</h3>
+                                <div class="player-action">
+                                    <span id="east-action"></span>
+                                </div>
+                                <div class="player-info">
+                                    <span class="player-cards-count" id="east-cards-count">13</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="east-cards" class="player-cards"></div>
+                    </div>
+                    
+                    <!-- 玩家区域 - 西 -->
+                    <div class="player-area player-west">
+                        <div class="player-header">
+                            <div class="player-name-info">
+                                <h3 id="west-name">小花</h3>
+                                <div class="player-action">
+                                    <span id="west-action"></span>
+                                </div>
+                                <div class="player-info">
+                                    <span class="player-cards-count" id="west-cards-count">13</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="west-cards" class="player-cards"></div>
+                    </div>
+                    
+                    <!-- 玩家区域 - 南（当前玩家） -->
+                    <div class="player-area player-south current-player-area">
+                        <div class="player-header">
+                            <div class="player-name-info">
+                                <button id="pass-btn" class="action-button" data-translate="不要">不要</button>
+                                <div class="player-content">
+                                    <h3 id="south-name">我</h3>
+                                    <div class="player-action">
+                                        <span id="south-action"></span>
+                                    </div>
+                                    <div class="player-info">
+                                        <span class="player-cards-count" id="south-cards-count">13</span>
+                                    </div>
+                                </div>
+                                <button id="play-btn" class="action-button" data-translate="出牌">出牌</button>
+                            </div>
+                        </div>
+                        <div id="south-cards" class="player-cards"></div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 背唐诗区域 -->
+            <div class="collapsible-section" id="tang-poem-section">
+                <div class="collapsible-header">
+                    <h3>唐诗宋词</h3>
+                </div>
+                <div class="collapsible-content">
+                    <!-- 唐诗宋词内容 -->
+                    <h4 id="poem-title">诗词标题<span id="poem-author" class="poem-author">作者</span></h4>
+                    <p id="poem-content">诗词内容</p>
+                </div>
+            </div>
+
+            <!-- 学宋词区域 -->
+            <div class="collapsible-section" id="song-ci-section">
+                <div class="collapsible-header">
+                    <h3>古诗精选</h3>
+                </div>
+                <div class="collapsible-content">
+                    <!-- 古诗精选内容 -->
+                    <h4 id="ancient-poem-title">古诗精选<span id="ancient-poem-author" class="poem-author">作者</span></h4>
+                    <p id="ancient-poem-content">古诗内容</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /.thirteen-cards-container -->
+
+    <!-- 游戏页面四角按钮（放在 body 顶层，避免被容器层叠上下文约束而遮挡弹窗） -->
+    <button id="settings-btn-game" class="game-corner-btn" title="设置">⚙️</button>
+    <button id="music-btn-game" class="game-corner-btn game-corner-btn-music" title="音乐">🎵</button>
+    <div id="toggle-score-btn" class="toggle-score-btn"><span class="toggle-icon">📊</span></div>
+    <button id="game-language-btn" class="game-language-btn">EN</button>
+    <div id="toggle-top-btn" class="toggle-top-btn" title="返回首页"><span class="toggle-icon">🏠</span></div>
+    </div>
+    <!-- /#game-wrapper -->
+
+        <!-- 自定义分数显示框 -->
+        <div id="score-modal" class="score-modal">
+            <div class="score-modal-content">
+                <div class="score-modal-header" id="score-modal-header">
+                    <h3 id="score-modal-title" data-translate="游戏结束">游戏结束</h3>
+                    <button id="score-modal-close" class="score-modal-close">&times;</button>
+                </div>
+                <div class="score-modal-body" id="score-modal-body">
+                    <!-- 分数内容将通过JavaScript动态添加 -->
+                    <div id="score-page-1" class="score-page">
+                        <!-- 第一页内容 -->
+                    </div>
+                    <div id="score-page-2" class="score-page" style="display: none;">
+                        <!-- 第二页内容 -->
+                    </div>
+                </div>
+                <div class="score-modal-footer">
+                    <button id="score-modal-ok" class="score-modal-ok" data-translate="确定">确定</button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 帮助模态框 -->
+        <div id="help-modal" class="score-modal">
+            <div class="score-modal-content">
+                <div class="score-modal-header">
+                    <h3 data-translate="游戏规则">游戏规则</h3>
+                    <button id="help-modal-close" class="score-modal-close">&times;</button>
+                </div>
+                <div class="score-modal-body">
+                    <h4 data-translate="游戏规则">游戏规则</h4>
+                    <h5 style="font-size: 16px;" data-translate="一、牌型和大小比较">一、牌型和大小比较</h5>
+                    <ul>
+                        <li data-translate="数字：2>A>K>Q>J>10>9>8>7>6>5>4>3">数字：2&gt;A&gt;K&gt;Q&gt;J&gt;10&gt;9&gt;8&gt;7&gt;6&gt;5&gt;4&gt;3</li>
+                        <li data-translate="花色：黑桃>红心>梅花>方块">花色：黑桃&gt;红心&gt;梅花&gt;方块</li>
+                        <li data-translate="一条龙：手牌是JQKA2345678910（不限花色）可以直接赢牌">一条龙：手牌是JQKA2345678910（不限花色）可以直接赢牌</li>
+                        <li data-translate="对子：2张同数牌，先比数字，同数比花色">对子：2张同数牌，先比数字，同数比花色</li>
+                        <li data-translate="顺子：5张连续牌（可首尾相连），按末张比大小">顺子：5张连续牌（可首尾相连），按末张比大小</li>
+                        <li data-translate="同花：5张同花色牌，先比花色，同花色比最大牌">同花：5张同花色牌，先比花色，同花色比最大牌</li>
+                        <li data-translate="三条：3张同数牌，按数字比大小">三条：3张同数牌，按数字比大小</li>
+                        <li data-translate="三条带一对：三条+一对，只比三条大小">三条带一对：三条+一对，只比三条大小</li>
+                        <li data-translate="四条带一张：四条+单张，只比四条大小">四条带一张：四条+单张，只比四条大小</li>
+                        <li data-translate="同花顺：花色相同的顺子为同花顺，按顺子比大小">同花顺：花色相同的顺子为同花顺，按顺子比大小</li>
+                        <li data-translate="五张牌型大小：同花顺>四条带一张>三条带一对>同花>顺子">五张牌型大小：同花顺&gt;四条带一张&gt;三条带一对&gt;同花&gt;顺子</li>
+                    </ul>
+                    
+                    <h5 style="font-size: 16px;" data-translate="二、出牌规则">二、出牌规则</h5>
+                    <ul>
+                        <li data-translate="首轮由持有方块3者先出且必须含方块3，牌型不限，从第二轮开始由上一轮先出完者先出且可以不含方块3">首轮由持有方块3者先出且必须含方块3，牌型不限，从第二轮开始由上一轮先出完者先出且可以不含方块3</li>
+                        <li data-translate="顺时针轮流应牌，下家需要用相同张数且更大的牌来应牌，可以选择不应牌">顺时针轮流应牌，下家需要用相同张数且更大的牌来应牌，可以选择不应牌</li>
+                        <li data-translate="当无人应牌时，当前玩家可继续出牌，牌型不限">当无人应牌时，当前玩家可继续出牌，牌型不限</li>
+                    </ul>
+                    
+                    <h5 style="font-size: 16px;" data-translate="三、抗牌规则">三、抗牌规则</h5>
+                    <p data-translate="下家仅剩1张牌时，上家必须出最大的牌来抗牌">下家仅剩1张牌时，上家必须出最大的牌来抗牌</p>
+                    
+                    <h5 style="font-size: 16px;" data-translate="四、计分规则">四、计分规则</h5>
+                    <ul>
+                        <li data-translate="当有人出完手中的牌则本轮游戏结束，其他玩家根据手中剩余的张数按负值计分">当有人出完手中的牌则本轮游戏结束，其他玩家根据手中剩余的张数按负值计分</li>
+                        <li data-translate="剩余13张：按剩余张数×(-4)计分">剩余13张：按剩余张数×(-4)计分</li>
+                        <li data-translate="剩余10-12张：按剩余张数×(-3)计分">剩余10-12张：按剩余张数×(-3)计分</li>
+                        <li data-translate="剩余8-9张：按剩余张数×(-2)计分">剩余8-9张：按剩余张数×(-2)计分</li>
+                        <li data-translate="剩余8张以下：按剩余张数×(-1)计分">剩余8张以下：按剩余张数×(-1)计分</li>
+                        <li data-translate="当有人累计分≤-100分则本局游戏结束，重新开局">当有人累计分≤-100分则本局游戏结束，重新开局</li>
+                        <li data-translate="输赢计算方法：每个人的分与其他人的分相减再合计">输赢计算方法：每个人的分与其他人的分相减再合计</li>
+                    </ul>
+                </div>
+                <div class="score-modal-footer">
+                    <button id="help-modal-ok" class="score-modal-ok" data-translate="确定">确定</button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 修改玩家名称模态框 -->
+        <div id="edit-names-modal" class="score-modal">
+            <div class="score-modal-content">
+                <div class="score-modal-header">
+                    <h3 data-translate="修改玩家名称">修改玩家名称</h3>
+                    <button id="edit-names-modal-close" class="score-modal-close">&times;</button>
+                </div>
+                <div class="score-modal-body">
+                    <div class="name-input-group">
+                        <label for="north-name-input" data-translate="北">北</label>：
+                        <input type="text" id="north-name-input" class="name-input" maxlength="6">
+                    </div>
+                    <div class="name-input-group">
+                        <label for="east-name-input" data-translate="东">东</label>：
+                        <input type="text" id="east-name-input" class="name-input" maxlength="6">
+                    </div>
+                    <div class="name-input-group">
+                        <label for="south-name-input" data-translate="南">南</label>：
+                        <input type="text" id="south-name-input" class="name-input" maxlength="6">
+                    </div>
+                    <div class="name-input-group">
+                        <label for="west-name-input" data-translate="西">西</label>：
+                        <input type="text" id="west-name-input" class="name-input" maxlength="6">
+                    </div>
+                </div>
+                <div class="score-modal-footer">
+                    <button id="edit-names-modal-cancel" class="score-modal-ok" data-translate="取消">取消</button>
+                    <button id="edit-names-modal-save" class="score-modal-ok" data-translate="保存">保存</button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 帮助模态框 -->
+        <div id="help-modal-2" class="score-modal">
+            <div class="score-modal-content">
+                <div class="score-modal-header">
+                    <h3 data-translate="按钮帮助">按钮帮助</h3>
+                    <button id="help-modal-2-close" class="score-modal-close">&times;</button>
+                </div>
+                <div class="score-modal-body">
+                    <h4 data-translate="首页按钮">首页按钮</h4>
+                    <ul>
+                        <li><strong data-translate="进入游戏">进入游戏</strong>: <span data-translate="点击进入扑克游戏桌面">点击进入扑克游戏桌面</span></li>
+                        <li><strong data-translate="游戏规则">游戏规则</strong>: <span data-translate="查看游戏规则说明">查看游戏规则说明</span></li>
+                        <li><strong data-translate="修改名称">修改名称</strong>: <span data-translate="修改玩家名称">修改玩家名称</span></li>
+                        <li><strong data-translate="帮助">帮助</strong>: <span data-translate="查看按钮功能说明">查看按钮功能说明</span></li>
+                        <li><strong data-translate="隐私政策">隐私政策</strong>: <span data-translate="点击查看隐私政策内容">点击查看隐私政策内容</span></li>
+                        <li><strong>English</strong>: <span data-translate="切换中英文显示">切换中英文显示</span></li>
+                    </ul>
+                    <h4 data-translate="游戏操作">游戏操作</h4>
+                    <ul>
+                        <li><strong data-translate="出牌">出牌</strong>: <span data-translate="打出选中的牌">打出选中的牌</span></li>
+                        <li><strong data-translate="不要">不要</strong>: <span data-translate="跳过本轮出牌">跳过本轮出牌</span></li>
+                        <li><strong data-translate="开始">开始</strong>: <span data-translate="开始新局游戏">开始新局游戏</span></li>
+                    </ul>
+                    <h4 data-translate="游戏页面按钮">游戏页面按钮</h4>
+                    <ul>
+                        <li><strong>⚙️<span data-translate="设置">设置</span></strong>: <span data-translate="右上角，打开设置弹窗">右上角，打开设置弹窗</span></li>
+                        <li><strong>🎵<span data-translate="音乐">音乐</span></strong>: <span data-translate="右上角，开关背景音乐">右上角，开关背景音乐</span></li>
+                        <li><strong>📊</strong>: <span data-translate="右上角，切换计分牌的显示/隐藏">右上角，切换计分牌的显示/隐藏</span></li>
+                        <li><strong>EN</strong>: <span data-translate="右上角，切换中英文显示">右上角，切换中英文显示</span></li>
+                        <li><strong>🏠<span data-translate="返回首页">返回首页</span></strong>: <span data-translate="右上角，返回圣旨首页">右上角，返回圣旨首页</span></li>
+                    </ul>
+                    
+                    <div class="help-about">
+                        <h4 data-translate="关于我们">关于我们</h4>
+                        <p data-translate="遇到问题请联系我们，邮箱：">遇到问题请联系我们，邮箱：</p>
+                        <a href="mailto:battery360@163.com">battery360@163.com</a>
+                    </div>
+                </div>
+                <div class="score-modal-footer">
+                    <button id="help-modal-2-ok" class="score-modal-ok" data-translate="确定">确定</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- 防沉迷提示模态框 -->
+        <div id="anti-addiction-modal" class="score-modal">
+            <div class="score-modal-content">
+                <div class="score-modal-header">
+                    <h3>防沉迷提示</h3>
+                    <button id="anti-addiction-modal-close" class="score-modal-close">&times;</button>
+                </div>
+                <div class="score-modal-body">
+                    <p id="anti-addiction-message">您的游戏时间已达到限制，请休息一下。</p>
+                    <div class="time-info">
+                        <p>今日已游戏时间：<span id="today-play-time">0分钟</span></p>
+                        <p>剩余游戏时间：<span id="remaining-play-time">0分钟</span></p>
+                    </div>
+                </div>
+                <div class="score-modal-footer">
+                    <button id="anti-addiction-modal-ok" class="score-modal-ok">确定</button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 扑克牌调节对话框 -->
+        <div id="card-size-modal" class="score-modal">
+            <div class="score-modal-content">
+                <div class="score-modal-header">
+                    <h3 data-translate="扑克牌调节">扑克牌调节</h3>
+                    <button id="card-size-modal-close" class="score-modal-close">&times;</button>
+                </div>
+                <div class="card-size-modal-body">
+                    <!-- 第一排：数字大小和花色大小调节 - 统一改为滑块，手机端免弹键盘 -->
+                    <div class="card-size-row">
+                        <!-- 数字大小调节：滑块 + 当前倍率气泡 -->
+                        <div class="card-size-section">
+                            <div class="card-size-section-header">
+                                <p data-translate="数字大小">数字大小</p>
+                                <span class="card-size-value" id="rank-size-value">×1.00</span>
+                            </div>
+                            <div class="card-size-slider-wrap">
+                                <div class="card-size-slider-track-ticks">
+                                    <span class="tick-label" data-label="小" data-val="0.875"></span>
+                                    <span class="tick-label" data-label="中" data-val="1.0"></span>
+                                    <span class="tick-label" data-label="大" data-val="1.125"></span>
+                                </div>
+                                <input type="range" id="rank-size-slider" class="card-size-slider"
+                                       min="0.5" max="2.0" step="0.05" value="1.0">
+                            </div>
+                            <!-- 三档快捷设置按钮（参考用，点击即跳到预设值，保留快速定位） -->
+                            <div class="card-size-preset-row">
+                                <button type="button" class="card-size-preset-btn" data-item="rank" data-val="0.875" data-translate="小">小</button>
+                                <button type="button" class="card-size-preset-btn" data-item="rank" data-val="1.0" data-translate="中">中</button>
+                                <button type="button" class="card-size-preset-btn" data-item="rank" data-val="1.125" data-translate="大">大</button>
+                            </div>
+                        </div>
+
+                        <!-- 花色大小调节：滑块 + 当前倍率气泡 -->
+                        <div class="card-size-section">
+                            <div class="card-size-section-header">
+                                <p data-translate="花色大小">花色大小</p>
+                                <span class="card-size-value" id="suit-size-value">×1.00</span>
+                            </div>
+                            <div class="card-size-slider-wrap">
+                                <div class="card-size-slider-track-ticks">
+                                    <span class="tick-label" data-label="小" data-val="0.8125"></span>
+                                    <span class="tick-label" data-label="中" data-val="1.0"></span>
+                                    <span class="tick-label" data-label="大" data-val="1.125"></span>
+                                </div>
+                                <input type="range" id="suit-size-slider" class="card-size-slider"
+                                       min="0.5" max="2.0" step="0.05" value="1.0">
+                            </div>
+                            <div class="card-size-preset-row">
+                                <button type="button" class="card-size-preset-btn" data-item="suit" data-val="0.8125" data-translate="小">小</button>
+                                <button type="button" class="card-size-preset-btn" data-item="suit" data-val="1.0" data-translate="中">中</button>
+                                <button type="button" class="card-size-preset-btn" data-item="suit" data-val="1.125" data-translate="大">大</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 第二排：扑克牌背面调节 -->
+                    <div class="card-size-row">
+                        <!-- 扑克牌背面调节 -->
+                        <div class="card-size-section">
+                            <p data-translate="扑克牌背面">扑克牌背面</p>
+                            <div class="card-size-options">
+                                <button id="card-back-normal" class="card-size-btn active" data-translate="蓝色">蓝色</button>
+                                <button id="card-back-transparent" class="card-size-btn" data-translate="红色">红色</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="score-modal-footer">
+                    <button id="card-size-modal-ok" class="score-modal-ok" data-translate="确定">确定</button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 音乐设置对话框 -->
+        <div id="music-modal" class="score-modal">
+            <div class="score-modal-content">
+                <div class="score-modal-header">
+                    <h3 data-translate="音乐设置">音乐设置</h3>
+                    <button id="music-modal-close" class="score-modal-close">&times;</button>
+                </div>
+                <div class="score-modal-body">
+                    <!-- 设置1：背景音乐选择 -->
+                    <div class="music-setting-item">
+                        <p data-translate="背景音乐">背景音乐</p>
+                        <div class="music-options">
+                            <button id="music-select-1" class="music-select-btn">1</button>
+                            <button id="music-select-2" class="music-select-btn">2</button>
+                            <button id="music-select-mixed" class="music-select-btn" data-translate="混合">混合</button>
+                        </div>
+                    </div>
+                    
+                    <!-- 设置2：播放和停止 -->
+                    <div class="music-setting-item">
+                        <p data-translate="播放控制">播放控制</p>
+                        <div class="music-options">
+                            <button id="music-play" class="music-control-btn" data-translate="播放">播放</button>
+                            <button id="music-stop" class="music-control-btn" data-translate="停止">停止</button>
+                        </div>
+                    </div>
+                    
+                    <!-- 设置3：自动播放 -->
+                    <div class="music-setting-item">
+                        <p data-translate="自动播放">自动播放</p>
+                        <div class="music-options">
+                            <button id="music-auto-on" class="music-auto-btn" data-translate="开启">开启</button>
+                            <button id="music-auto-off" class="music-auto-btn" data-translate="手动">手动</button>
+                        </div>
+                    </div>
+                    
+                    <!-- 设置4：音量调节 -->
+                    <div class="music-setting-item">
+                        <p data-translate="音量">音量</p>
+                        <input type="range" id="music-volume-slider" min="0" max="100" value="50" />
+                        <div class="volume-display">
+                            <span id="music-volume-value">50%</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="score-modal-footer">
+                    <button id="music-modal-ok" class="score-modal-ok" data-translate="确定">确定</button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 游戏节奏对话框 -->
+        <div id="speed-modal" class="score-modal">
+            <div class="score-modal-content">
+                <div class="score-modal-header">
+                    <h3 data-translate="游戏节奏">游戏节奏</h3>
+                    <button id="speed-modal-close" class="score-modal-close">&times;</button>
+                </div>
+                <div class="score-modal-body">
+                    <p data-translate="选择游戏节奏">选择游戏节奏</p>
+                    <div class="speed-options">
+                        <button id="speed-fast" class="speed-btn" data-translate="快">快</button>
+                        <button id="speed-medium" class="speed-btn" data-translate="中">中</button>
+                        <button id="speed-slow" class="speed-btn" data-translate="慢">慢</button>
+                        <button id="speed-smart" class="speed-btn" data-translate="智能">智能</button>
+                    </div>
+                </div>
+                <div class="score-modal-footer">
+                    <button id="speed-modal-ok" class="score-modal-ok" data-translate="确定">确定</button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 自定义确认对话框 -->
+        <div id="confirm-modal" class="score-modal">
+            <div class="score-modal-content">
+                <div class="score-modal-header">
+                    <h3 id="confirm-title" data-translate="确认">确认</h3>
+                </div>
+                <div class="score-modal-body">
+                    <p id="confirm-message"></p>
+                </div>
+                <div class="score-modal-footer">
+                    <button id="confirm-cancel" class="score-modal-ok" data-translate="取消">取消</button>
+                    <button id="confirm-ok" class="score-modal-ok" data-translate="确定">确定</button>
+                </div>
+            </div>
+        </div>
+    
+    <script src="variant-map.js"></script>
+    <script src="script.js"></script>
+    <script type="module" src="app.js"></script>
+</body>
+</html>
